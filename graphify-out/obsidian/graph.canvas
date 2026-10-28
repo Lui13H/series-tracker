@@ -1,0 +1,792 @@
+{
+  "nodes": [
+    {
+      "id": "g0",
+      "type": "group",
+      "label": "Watch Progress",
+      "x": 0,
+      "y": 0,
+      "width": 880,
+      "height": 420,
+      "color": "1"
+    },
+    {
+      "id": "n_js_state_progress_getprogressforroute",
+      "type": "file",
+      "file": "getProgressForRoute().md",
+      "x": 20,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress_getsavedprogress",
+      "type": "file",
+      "file": "getSavedProgress().md",
+      "x": 220,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app_initapp",
+      "type": "file",
+      "file": "initApp().md",
+      "x": 420,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress_iswatched",
+      "type": "file",
+      "file": "isWatched().md",
+      "x": 620,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress_loadprogress",
+      "type": "file",
+      "file": "loadProgress().md",
+      "x": 20,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress",
+      "type": "file",
+      "file": "progress.js.md",
+      "x": 220,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress_resetallprogress",
+      "type": "file",
+      "file": "resetAllProgress().md",
+      "x": 420,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress_saveprogress",
+      "type": "file",
+      "file": "saveProgress().md",
+      "x": 620,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress_toggleepisodeupto",
+      "type": "file",
+      "file": "toggleEpisodeUpTo().md",
+      "x": 20,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress_togglesingleepisode",
+      "type": "file",
+      "file": "toggleSingleEpisode().md",
+      "x": 220,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_state_progress_userprogress",
+      "type": "file",
+      "file": "userProgress.md",
+      "x": 420,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g1",
+      "type": "group",
+      "label": "Event Handlers",
+      "x": 960,
+      "y": 0,
+      "width": 660,
+      "height": 420,
+      "color": "2"
+    },
+    {
+      "id": "n_js_app",
+      "type": "file",
+      "file": "app.js.md",
+      "x": 980,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app_handleresetallprogress",
+      "type": "file",
+      "file": "handleResetAllProgress().md",
+      "x": 1180,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app_handletoggleepisodeupto",
+      "type": "file",
+      "file": "handleToggleEpisodeUpTo().md",
+      "x": 1380,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app_handletogglesingleepisode",
+      "type": "file",
+      "file": "handleToggleSingleEpisode().md",
+      "x": 980,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_toast_showtoast",
+      "type": "file",
+      "file": "showToast().md",
+      "x": 1180,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app_switchluisroute",
+      "type": "file",
+      "file": "switchLuisRoute().md",
+      "x": 1380,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app_switchsamuelroute",
+      "type": "file",
+      "file": "switchSamuelRoute().md",
+      "x": 980,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_app_switchtab",
+      "type": "file",
+      "file": "switchTab().md",
+      "x": 1180,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_toast",
+      "type": "file",
+      "file": "toast.js.md",
+      "x": 1380,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g2",
+      "type": "group",
+      "label": "Show Episodes",
+      "x": 1700,
+      "y": 0,
+      "width": 660,
+      "height": 420,
+      "color": "3"
+    },
+    {
+      "id": "n_js_data_episodes_bettercallsauleps",
+      "type": "file",
+      "file": "betterCallSaulEps.md",
+      "x": 1720,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_data_episodes_breakingbadeps",
+      "type": "file",
+      "file": "breakingBadEps.md",
+      "x": 1920,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_data_episodes_chainsawmaneps",
+      "type": "file",
+      "file": "chainsawManEps.md",
+      "x": 2120,
+      "y": 80,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_data_episodes_deathnoteeps",
+      "type": "file",
+      "file": "deathNoteEps.md",
+      "x": 1720,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_data_episodes_elcaminoeps",
+      "type": "file",
+      "file": "elCaminoEps.md",
+      "x": 1920,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_data_episodes",
+      "type": "file",
+      "file": "episodes.js.md",
+      "x": 2120,
+      "y": 160,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_data_episodes_hxhchimera",
+      "type": "file",
+      "file": "hxhChimera.md",
+      "x": 1720,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_data_episodes_hxhexame",
+      "type": "file",
+      "file": "hxhExame.md",
+      "x": 1920,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_data_episodes_hxhyorknew",
+      "type": "file",
+      "file": "hxhYorknew.md",
+      "x": 2120,
+      "y": 240,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g3",
+      "type": "group",
+      "label": "App Utilities",
+      "x": 0,
+      "y": 500,
+      "width": 660,
+      "height": 420,
+      "color": "4"
+    },
+    {
+      "id": "n_js_utils_time_formattime",
+      "type": "file",
+      "file": "formatTime().md",
+      "x": 20,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_routes_getactivekey",
+      "type": "file",
+      "file": "getActiveKey().md",
+      "x": 220,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_routes_getluisarcs",
+      "type": "file",
+      "file": "getLuisArcs().md",
+      "x": 420,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_routes_getsamuelarcs",
+      "type": "file",
+      "file": "getSamuelArcs().md",
+      "x": 20,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_index",
+      "type": "file",
+      "file": "index.html.md",
+      "x": 220,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_routes",
+      "type": "file",
+      "file": "routes.js.md",
+      "x": 420,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_assets_css_styles",
+      "type": "file",
+      "file": "styles.css.md",
+      "x": 20,
+      "y": 740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_utils_time",
+      "type": "file",
+      "file": "time.js.md",
+      "x": 220,
+      "y": 740,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g4",
+      "type": "group",
+      "label": "UI Rendering",
+      "x": 960,
+      "y": 500,
+      "width": 660,
+      "height": 400,
+      "color": "5"
+    },
+    {
+      "id": "n_js_ui_render",
+      "type": "file",
+      "file": "render.js.md",
+      "x": 980,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_render_renderapp",
+      "type": "file",
+      "file": "renderApp().md",
+      "x": 1180,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_render_renderarcs",
+      "type": "file",
+      "file": "renderArcs().md",
+      "x": 1380,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_render_renderdashboard",
+      "type": "file",
+      "file": "renderDashboard().md",
+      "x": 980,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_render_rendermaintabs",
+      "type": "file",
+      "file": "renderMainTabs().md",
+      "x": 1180,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "n_js_ui_render_rendersubtabs",
+      "type": "file",
+      "file": "renderSubtabs().md",
+      "x": 1380,
+      "y": 660,
+      "width": 180,
+      "height": 60
+    },
+    {
+      "id": "g5",
+      "type": "group",
+      "label": "Project Documentation",
+      "x": 1700,
+      "y": 500,
+      "width": 600,
+      "height": 400,
+      "color": "6"
+    },
+    {
+      "id": "n_readme",
+      "type": "file",
+      "file": "README.md",
+      "x": 1720,
+      "y": 580,
+      "width": 180,
+      "height": 60
+    }
+  ],
+  "edges": [
+    {
+      "id": "e_js_app_js_app_initapp",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_app_initapp",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_initapp_js_state_progress_loadprogress",
+      "fromNode": "n_js_app_initapp",
+      "toNode": "n_js_state_progress_loadprogress",
+      "label": "calls [INFERRED]"
+    },
+    {
+      "id": "e_js_state_progress_iswatched_js_state_progress_getprogressforroute",
+      "fromNode": "n_js_state_progress_iswatched",
+      "toNode": "n_js_state_progress_getprogressforroute",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_getprogressforroute",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_getprogressforroute",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_loadprogress_js_state_progress_getsavedprogress",
+      "fromNode": "n_js_state_progress_loadprogress",
+      "toNode": "n_js_state_progress_getsavedprogress",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_getsavedprogress",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_getsavedprogress",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_iswatched",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_iswatched",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_loadprogress",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_loadprogress",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_resetallprogress_js_state_progress_saveprogress",
+      "fromNode": "n_js_state_progress_resetallprogress",
+      "toNode": "n_js_state_progress_saveprogress",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_resetallprogress",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_resetallprogress",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_toggleepisodeupto_js_state_progress_saveprogress",
+      "fromNode": "n_js_state_progress_toggleepisodeupto",
+      "toNode": "n_js_state_progress_saveprogress",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_togglesingleepisode_js_state_progress_saveprogress",
+      "fromNode": "n_js_state_progress_togglesingleepisode",
+      "toNode": "n_js_state_progress_saveprogress",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_saveprogress",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_saveprogress",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_toggleepisodeupto",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_toggleepisodeupto",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_togglesingleepisode",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_togglesingleepisode",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_js_app_handleresetallprogress",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_app_handleresetallprogress",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_js_app_handletoggleepisodeupto",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_app_handletoggleepisodeupto",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_js_app_handletogglesingleepisode",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_app_handletogglesingleepisode",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_js_app_switchluisroute",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_app_switchluisroute",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_js_app_switchsamuelroute",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_app_switchsamuelroute",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_js_app_switchtab",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_app_switchtab",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_utils_toast_js_utils_toast_showtoast",
+      "fromNode": "n_js_utils_toast",
+      "toNode": "n_js_utils_toast_showtoast",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_routes_js_ui_routes_getactivekey",
+      "fromNode": "n_js_ui_routes",
+      "toNode": "n_js_ui_routes_getactivekey",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_routes_js_ui_routes_getluisarcs",
+      "fromNode": "n_js_ui_routes",
+      "toNode": "n_js_ui_routes_getluisarcs",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_routes_js_ui_routes_getsamuelarcs",
+      "fromNode": "n_js_ui_routes",
+      "toNode": "n_js_ui_routes_getsamuelarcs",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_utils_time_js_utils_time_formattime",
+      "fromNode": "n_js_utils_time",
+      "toNode": "n_js_utils_time_formattime",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_renderapp_js_ui_render_rendermaintabs",
+      "fromNode": "n_js_ui_render_renderapp",
+      "toNode": "n_js_ui_render_rendermaintabs",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_renderapp_js_ui_render_rendersubtabs",
+      "fromNode": "n_js_ui_render_renderapp",
+      "toNode": "n_js_ui_render_rendersubtabs",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_renderapp_js_ui_render_renderdashboard",
+      "fromNode": "n_js_ui_render_renderapp",
+      "toNode": "n_js_ui_render_renderdashboard",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_renderapp_js_ui_render_renderarcs",
+      "fromNode": "n_js_ui_render_renderapp",
+      "toNode": "n_js_ui_render_renderarcs",
+      "label": "calls [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_js_ui_render_renderapp",
+      "fromNode": "n_js_ui_render",
+      "toNode": "n_js_ui_render_renderapp",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_js_ui_render_renderapp",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_ui_render_renderapp",
+      "label": "calls [INFERRED]"
+    },
+    {
+      "id": "e_js_ui_render_js_ui_render_renderarcs",
+      "fromNode": "n_js_ui_render",
+      "toNode": "n_js_ui_render_renderarcs",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_js_ui_render_renderdashboard",
+      "fromNode": "n_js_ui_render",
+      "toNode": "n_js_ui_render_renderdashboard",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_js_ui_render_rendermaintabs",
+      "fromNode": "n_js_ui_render",
+      "toNode": "n_js_ui_render_rendermaintabs",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_js_ui_render_rendersubtabs",
+      "fromNode": "n_js_ui_render",
+      "toNode": "n_js_ui_render_rendersubtabs",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_state_progress_js_state_progress_userprogress",
+      "fromNode": "n_js_state_progress",
+      "toNode": "n_js_state_progress_userprogress",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_index_js_state_progress",
+      "fromNode": "n_index",
+      "toNode": "n_js_state_progress",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_index_js_app",
+      "fromNode": "n_index",
+      "toNode": "n_js_app",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_js_app_js_utils_toast",
+      "fromNode": "n_js_app",
+      "toNode": "n_js_utils_toast",
+      "label": "calls [INFERRED]"
+    },
+    {
+      "id": "e_index_js_utils_toast",
+      "fromNode": "n_index",
+      "toNode": "n_js_utils_toast",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_js_data_episodes_js_data_episodes_hxhyorknew",
+      "fromNode": "n_js_data_episodes",
+      "toNode": "n_js_data_episodes_hxhyorknew",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_data_episodes_js_data_episodes_hxhexame",
+      "fromNode": "n_js_data_episodes",
+      "toNode": "n_js_data_episodes_hxhexame",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_data_episodes_js_data_episodes_chainsawmaneps",
+      "fromNode": "n_js_data_episodes",
+      "toNode": "n_js_data_episodes_chainsawmaneps",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_data_episodes_js_data_episodes_hxhchimera",
+      "fromNode": "n_js_data_episodes",
+      "toNode": "n_js_data_episodes_hxhchimera",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_data_episodes_js_data_episodes_deathnoteeps",
+      "fromNode": "n_js_data_episodes",
+      "toNode": "n_js_data_episodes_deathnoteeps",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_data_episodes_js_data_episodes_breakingbadeps",
+      "fromNode": "n_js_data_episodes",
+      "toNode": "n_js_data_episodes_breakingbadeps",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_data_episodes_js_data_episodes_elcaminoeps",
+      "fromNode": "n_js_data_episodes",
+      "toNode": "n_js_data_episodes_elcaminoeps",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_js_data_episodes_js_data_episodes_bettercallsauleps",
+      "fromNode": "n_js_data_episodes",
+      "toNode": "n_js_data_episodes_bettercallsauleps",
+      "label": "contains [EXTRACTED]"
+    },
+    {
+      "id": "e_index_js_data_episodes",
+      "fromNode": "n_index",
+      "toNode": "n_js_data_episodes",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_index_js_ui_routes",
+      "fromNode": "n_index",
+      "toNode": "n_js_ui_routes",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_index_js_utils_time",
+      "fromNode": "n_index",
+      "toNode": "n_js_utils_time",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_js_ui_render_js_utils_time",
+      "fromNode": "n_js_ui_render",
+      "toNode": "n_js_utils_time",
+      "label": "calls [INFERRED]"
+    },
+    {
+      "id": "e_index_js_ui_render",
+      "fromNode": "n_index",
+      "toNode": "n_js_ui_render",
+      "label": "references [EXTRACTED]"
+    },
+    {
+      "id": "e_index_assets_css_styles",
+      "fromNode": "n_index",
+      "toNode": "n_assets_css_styles",
+      "label": "references [EXTRACTED]"
+    }
+  ]
+}
