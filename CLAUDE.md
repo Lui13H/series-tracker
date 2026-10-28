@@ -35,3 +35,19 @@ O projeto segue separação estrita de responsabilidades:
 - **Utilitários** (`js/utils/`) — funções puras sem efeitos colaterais
 
 Mantenha essa separação ao adicionar código. Não misture lógica de estado com renderização.
+
+## Modelo de dados estático para web (Obsidian como CMS)
+
+O Obsidian funciona como CMS e banco de dados local em arquivos Markdown (`.md`) e JSON. O site é público via **GitHub Pages** — portanto:
+
+- Qualquer dado estruturado, notas ou metadados de séries criados ou editados localmente devem ser **commitados e enviados ao repositório** (`git push`) para ficarem disponíveis na nuvem.
+- O frontend consome dados estáticos (ex.: `graphify-out/graph.json` ou equivalentes) via `fetch`, sem depender de banco de dados dinâmico de servidor.
+- Nunca referencie caminhos de arquivo local (`file://`) no código frontend — use sempre caminhos relativos servidos pelo GitHub Pages.
+
+## Publicação de mudanças
+
+Após rodar `graphify .` e `graphify export obsidian`, commite **todos** os arquivos gerados ou modificados e faça `git push` para que o GitHub Pages reflita o estado atual. O pipeline é sempre:
+
+1. Editar código / dados
+2. `graphify .` → `graphify export obsidian`
+3. `git add` + `git commit` + `git push`
