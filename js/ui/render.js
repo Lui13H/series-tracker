@@ -1,3 +1,14 @@
+const POSTER_GRADIENTS = [
+    'linear-gradient(155deg, #050d1c 0%, #0f2448 40%, #1a3a6e 70%, #0d1e40 100%)',
+    'linear-gradient(155deg, #0a0514 0%, #2d1660 40%, #4a2d8a 70%, #1a0d3d 100%)',
+    'linear-gradient(155deg, #1a0500 0%, #7a1500 40%, #c0350c 70%, #3d0d00 100%)',
+    'linear-gradient(155deg, #0c0e00 0%, #2a3a00 40%, #4a6600 70%, #1a2200 100%)',
+    'linear-gradient(155deg, #080808 0%, #1a0a28 40%, #2d1550 70%, #100820 100%)',
+    'linear-gradient(155deg, #001a0c 0%, #004d22 40%, #00843b 70%, #002514 100%)',
+    'linear-gradient(155deg, #1a1000 0%, #5a3800 40%, #8a6020 70%, #2e1e00 100%)',
+    'linear-gradient(155deg, #1a0800 0%, #6b2c00 40%, #c04a00 70%, #3d1500 100%)',
+];
+
 function renderApp(currentTab, luisRoute, samuelRoute) {
     renderMainTabs(currentTab);
     renderSubtabs(currentTab, luisRoute, samuelRoute);
@@ -101,77 +112,121 @@ function renderArcs(currentTab, luisRoute, samuelRoute) {
     const activeKey = getActiveKey(currentTab, luisRoute, samuelRoute);
     const watchedList = getProgressForRoute(activeKey);
 
-    const arcsContainer = document.getElementById('arcs-container');
-    arcsContainer.innerHTML = arcs.map(arc => {
-        let arcTotalDuration = arc.episodes.reduce((acc, ep) => acc + ep.duration, 0);
-        let arcWatchedCount = arc.episodes.filter(ep => watchedList.includes(ep.globalIdx)).length;
-        let arcWatchedDuration = arc.episodes.filter(ep => watchedList.includes(ep.globalIdx)).reduce((acc, ep) => acc + ep.duration, 0);
-        let arcRemainingDuration = arcTotalDuration - arcWatchedDuration;
-        let arcPercent = arc.episodes.length > 0 ? Math.round((arcWatchedCount / arc.episodes.length) * 100) : 0;
+    const arcStats = arcs.map(arc => {
+        const totalDur = arc.episodes.reduce((s, e) => s + e.duration, 0);
+        const watchedCount = arc.episodes.filter(e => watchedList.includes(e.globalIdx)).length;
+        const percent = arc.episodes.length > 0 ? Math.round((watchedCount / arc.episodes.length) * 100) : 0;
+        const firstUnwatched = arc.episodes.find(e => !watchedList.includes(e.globalIdx)) || null;
+        return { totalDur, watchedCount, percent, firstUnwatched };
+    });
 
-        return `
-            <div class="arc-card shadow-2xl">
-                <!-- Arc Header -->
-                <div class="px-5 py-5 border-b border-white/[0.05] flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                    <div class="min-w-0">
-                        <div class="flex items-center gap-2.5 flex-wrap">
-                            <h3 class="text-base font-semibold text-white" style="letter-spacing:-0.01em">${arc.name}</h3>
-                            <span class="text-[9px] px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.07] text-slate-600 font-semibold uppercase tracking-widest">#${arc.epStart}–${arc.epEnd}</span>
-                        </div>
-                        <div class="flex items-center gap-3 mt-1.5">
-                            <span class="text-[11px] text-slate-600">${arc.episodes.length} ep · ${formatTime(arcTotalDuration)}</span>
-                            <span class="text-[10px] text-slate-700">·</span>
-                            <span class="text-[11px] text-slate-600">Faltam <span class="text-amber-400/80 font-medium">${formatTime(arcRemainingDuration)}</span></span>
-                        </div>
-                        <div class="arc-progress-track w-36 mt-3">
-                            <div class="arc-progress-fill" style="width:${arcPercent}%"></div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-3 shrink-0">
-                        <div class="text-right">
-                            <span class="stat-num text-2xl font-bold text-white">${arcPercent}<span class="text-base text-slate-600">%</span></span>
-                            <span class="text-[9px] text-slate-600 block mt-0.5">${arcWatchedCount}/${arc.episodes.length} vistos</span>
-                        </div>
-                        <div class="w-11 h-11 flex items-center justify-center">
-                            <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                                <path stroke-width="2.5" stroke="rgba(255,255,255,0.05)" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                                <path stroke-dasharray="${arcPercent}, 100" stroke-width="2.5" stroke-linecap="butt" stroke="url(#arcGrad${arc.epStart})" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                                <defs>
-                                    <linearGradient id="arcGrad${arc.epStart}" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stop-color="#6366f1"/>
-                                        <stop offset="100%" stop-color="#a78bfa"/>
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                        </div>
+    const continueArcIdx = arcStats.findIndex(s => s.firstUnwatched !== null);
+    const continueEp = continueArcIdx >= 0 ? arcStats[continueArcIdx].firstUnwatched : null;
+    const continueArc = continueArcIdx >= 0 ? arcs[continueArcIdx] : null;
+    const continueStats = continueArcIdx >= 0 ? arcStats[continueArcIdx] : null;
+
+    const continueSection = continueEp ? `
+        <div class="mb-8">
+            <p class="catalog-section-title">Continuar Assistindo</p>
+            <div class="continue-card" onclick="toggleArc(${continueArcIdx})">
+                <div class="continue-thumb" style="background:${POSTER_GRADIENTS[continueArcIdx % POSTER_GRADIENTS.length]}"></div>
+                <div class="continue-info">
+                    <p style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(148,163,184,0.45);font-weight:600;margin-bottom:4px">${continueArc.name}</p>
+                    <p style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${continueEp.title}</p>
+                    <p style="font-size:11px;color:rgba(100,116,139,0.8);margin-top:4px">Ep. ${continueEp.num} &middot; ${continueEp.duration} min</p>
+                    <div class="continue-progress-bar" style="margin-top:10px">
+                        <div class="continue-progress-fill" style="width:${continueStats.percent}%"></div>
                     </div>
                 </div>
+                <div style="display:flex;align-items:center;padding:0 16px;flex-shrink:0">
+                    <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center">
+                        <i class="fa-solid fa-play" style="font-size:11px;color:#fff;margin-left:2px"></i>
+                    </div>
+                </div>
+            </div>
+        </div>` : '';
 
-                <!-- Episodes List -->
-                <div class="max-h-[540px] overflow-y-auto">
+    const posterGrid = `
+        <div class="mb-6">
+            <p class="catalog-section-title">Suas Séries</p>
+            <div class="poster-grid">
+                ${arcs.map((arc, i) => {
+                    const { percent, watchedCount, totalDur } = arcStats[i];
+                    const grad = POSTER_GRADIENTS[i % POSTER_GRADIENTS.length];
+                    return `
+                        <div class="poster-card" data-arc="${i}" onclick="toggleArc(${i})">
+                            <div style="position:absolute;inset:0;background:${grad}"></div>
+                            <div class="poster-noise"></div>
+                            <div class="poster-overlay">
+                                <div class="poster-progress-ring">
+                                    <svg style="width:100%;height:100%;transform:rotate(-90deg)" viewBox="0 0 36 36">
+                                        <path stroke-width="3" stroke="rgba(255,255,255,0.18)" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                        <path stroke-dasharray="${percent}, 100" stroke-width="3" stroke-linecap="butt" stroke="${percent >= 100 ? '#34d399' : '#a78bfa'}" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    </svg>
+                                    <span style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums">${percent}%</span>
+                                </div>
+                                <p class="poster-title">${arc.name}</p>
+                                <p class="poster-meta">${arc.episodes.length} ep &middot; ${formatTime(totalDur)}</p>
+                            </div>
+                        </div>`;
+                }).join('')}
+            </div>
+        </div>`;
+
+    const episodePanels = arcs.map((arc, i) => {
+        const { percent, watchedCount } = arcStats[i];
+        return `
+            <div id="arc-eps-${i}" class="arc-eps-panel hidden">
+                <div class="arc-eps-header">
+                    <div style="min-width:0">
+                        <p style="font-size:13px;font-weight:600;color:#fff;letter-spacing:-0.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${arc.name}</p>
+                        <p style="font-size:11px;color:rgba(100,116,139,0.65);margin-top:2px">${watchedCount}/${arc.episodes.length} ep &middot; ${percent}% concluído</p>
+                    </div>
+                    <button onclick="toggleArc(${i})" style="width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);transition:background 0.15s;flex-shrink:0" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='rgba(255,255,255,0.05)'">
+                        <i class="fa-solid fa-chevron-up" style="font-size:9px;color:rgba(148,163,184,0.6)"></i>
+                    </button>
+                </div>
+                <div style="max-height:460px;overflow-y:auto">
                     ${arc.episodes.map(ep => {
                         const watched = isWatched(ep.globalIdx, activeKey);
                         return `
-                            <div class="ep-row px-5 py-3.5 flex items-center gap-3 ${watched ? 'bg-indigo-950/10' : ''}">
-                                <button onclick="handleToggleSingleEpisode(${ep.globalIdx})"
-                                    class="ep-checkbox ${watched ? 'ep-checked' : ''} w-6 h-6 rounded-md border flex items-center justify-center ${watched ? 'bg-indigo-600 border-indigo-500/80 text-white' : 'border-white/[0.11] bg-white/[0.02] text-transparent'}">
-                                    <i class="fa-solid fa-check text-[10px]"></i>
+                            <div class="ep-row px-5 py-3.5 flex items-center gap-3${watched ? ' bg-indigo-950/10' : ''}">
+                                <button onclick="handleToggleSingleEpisode(${ep.globalIdx})" class="ep-checkbox${watched ? ' ep-checked' : ''} w-6 h-6 rounded-md border flex items-center justify-center${watched ? ' bg-indigo-600 border-indigo-500/80 text-white' : ' border-white/[0.11] bg-white/[0.02] text-transparent'}">
+                                    <i class="fa-solid fa-check" style="font-size:10px"></i>
                                 </button>
-                                <span class="stat-num text-[10px] text-slate-700 w-5 text-right shrink-0 select-none">${ep.num}</span>
+                                <span class="stat-num text-slate-700 w-5 text-right shrink-0 select-none" style="font-size:10px">${ep.num}</span>
                                 <div class="flex-1 min-w-0">
-                                    <h4 class="ep-title-text text-[13px] font-medium leading-tight truncate ${watched ? 'text-slate-600' : 'text-slate-200'}">${ep.title}</h4>
+                                    <h4 class="ep-title-text font-medium leading-tight truncate${watched ? ' text-slate-600' : ' text-slate-200'}" style="font-size:13px">${ep.title}</h4>
                                 </div>
-                                <span class="stat-num text-[11px] text-slate-700 shrink-0 w-11 text-right">${ep.duration}<span class="text-[9px]">m</span></span>
-                                <button onclick="handleToggleEpisodeUpTo(${ep.globalIdx})"
-                                    class="btn-mark text-[10px] px-2.5 py-1.5 rounded-lg border border-white/[0.07] bg-white/[0.02] text-slate-600 flex items-center gap-1.5 shrink-0">
-                                    <i class="fa-solid fa-flag text-indigo-500/60 text-[9px]"></i>
+                                <span class="stat-num text-slate-700 shrink-0 w-11 text-right" style="font-size:11px">${ep.duration}<span style="font-size:9px">m</span></span>
+                                <button onclick="handleToggleEpisodeUpTo(${ep.globalIdx})" class="btn-mark text-slate-600 flex items-center gap-1.5 shrink-0 rounded-lg border border-white/[0.07] bg-white/[0.02]" style="font-size:10px;padding:6px 10px">
+                                    <i class="fa-solid fa-flag text-indigo-500/60" style="font-size:9px"></i>
                                     <span class="hidden sm:inline">Até aqui</span>
                                 </button>
-                            </div>
-                        `;
+                            </div>`;
                     }).join('')}
                 </div>
-            </div>
-        `;
+            </div>`;
     }).join('');
+
+    document.getElementById('arcs-container').innerHTML = continueSection + posterGrid + episodePanels;
+
+    const openIdx = continueArcIdx >= 0 ? continueArcIdx : 0;
+    toggleArc(openIdx);
+}
+
+function toggleArc(arcIdx) {
+    const panel = document.getElementById('arc-eps-' + arcIdx);
+    if (!panel) return;
+    const isOpen = !panel.classList.contains('hidden');
+
+    document.querySelectorAll('.arc-eps-panel').forEach(p => p.classList.add('hidden'));
+    document.querySelectorAll('.poster-card').forEach(c => c.classList.remove('poster-active'));
+
+    if (!isOpen) {
+        panel.classList.remove('hidden');
+        const card = document.querySelector('.poster-card[data-arc="' + arcIdx + '"]');
+        if (card) card.classList.add('poster-active');
+        setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+    }
 }

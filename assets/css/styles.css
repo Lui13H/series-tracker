@@ -5,7 +5,6 @@ body {
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    /* Cinematic atmosphere: radial glow fixed to the viewport */
     background-image:
         radial-gradient(ellipse 85% 55% at 50% -8%, rgba(99,102,241,0.14) 0%, transparent 65%),
         radial-gradient(ellipse 45% 35% at 88% 90%, rgba(139,92,246,0.07) 0%, transparent 55%);
@@ -32,7 +31,6 @@ body {
 
 /* ============================================================
    GLASSMORPHISM PANEL
-   Used on: header, dashboard, route selectors
    ============================================================ */
 .glass-panel {
     background: rgba(255,255,255,0.025);
@@ -54,7 +52,6 @@ body {
     background: rgba(255,255,255,0.05) !important;
     border-color: rgba(255,255,255,0.13) !important;
 }
-/* Luis – selected */
 .profile-active-indigo {
     background: rgba(99,102,241,0.1) !important;
     border-color: rgba(99,102,241,0.5) !important;
@@ -64,7 +61,6 @@ body {
         0 8px 32px rgba(0,0,0,0.45),
         inset 0 1px 0 rgba(255,255,255,0.07);
 }
-/* Samuel – selected */
 .profile-active-amber {
     background: rgba(245,158,11,0.08) !important;
     border-color: rgba(245,158,11,0.42) !important;
@@ -87,21 +83,18 @@ body {
     transition: background 0.2s, border-color 0.2s, box-shadow 0.22s, color 0.2s, transform 0.12s;
 }
 .pill-btn:active { transform: scale(0.96); }
-/* Active (indigo) */
 .pill-active-indigo {
     background: linear-gradient(135deg, #5b58f0, #7c3aed) !important;
     border-color: transparent !important;
     color: #fff !important;
     box-shadow: 0 4px 20px rgba(99,102,241,0.45), 0 0 0 1px rgba(99,102,241,0.3);
 }
-/* Active (amber) */
 .pill-active-amber {
     background: linear-gradient(135deg, #d97706, #f59e0b) !important;
     border-color: transparent !important;
     color: #fff !important;
     box-shadow: 0 4px 20px rgba(245,158,11,0.38), 0 0 0 1px rgba(245,158,11,0.25);
 }
-/* Inactive */
 .pill-inactive {
     background: rgba(255,255,255,0.04) !important;
     border-color: rgba(255,255,255,0.09) !important;
@@ -131,67 +124,15 @@ body {
 }
 
 /* ============================================================
-   ARC CARD  (glassmorphism)
-   ============================================================ */
-.arc-card {
-    background: rgba(255,255,255,0.025);
-    backdrop-filter: blur(18px) saturate(1.12);
-    -webkit-backdrop-filter: blur(18px) saturate(1.12);
-    border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 14px;
-    overflow: hidden;
-    position: relative;
-    transition: border-color 0.22s;
-}
-.arc-card:hover {
-    border-color: rgba(255,255,255,0.12);
-}
-/* Left accent stripe */
-.arc-card::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 18px; bottom: 18px;
-    width: 2px;
-    border-radius: 0 2px 2px 0;
-    background: linear-gradient(180deg, #818cf8 0%, #6366f1 55%, rgba(99,102,241,0) 100%);
-    opacity: 0.6;
-    z-index: 2;
-    pointer-events: none;
-}
-
-/* ============================================================
-   ARC MINI PROGRESS BAR
-   ============================================================ */
-.arc-progress-track {
-    height: 2px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 1px;
-    overflow: hidden;
-    margin-top: 8px;
-}
-.arc-progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #6366f1, #8b5cf6);
-    border-radius: 1px;
-    transition: width 0.5s ease;
-}
-
-/* ============================================================
-   EPISODE ROWS
+   EPISODE ROWS  (inside arc-eps-panel)
    ============================================================ */
 .ep-row {
     transition: background 0.15s ease;
     border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 .ep-row:last-child { border-bottom: none; }
-.ep-row:hover {
-    background: rgba(99,102,241,0.07) !important;
-}
-/* Row hover lifts child text/button states */
-.ep-row:hover .ep-title-text {
-    color: #fff !important;
-    opacity: 1 !important;
-}
+.ep-row:hover { background: rgba(99,102,241,0.07) !important; }
+.ep-row:hover .ep-title-text { color: #fff !important; opacity: 1 !important; }
 .ep-row:hover .btn-mark {
     border-color: rgba(99,102,241,0.4) !important;
     color: #a5b4fc !important;
@@ -210,9 +151,7 @@ body {
     transform: scale(1.07);
 }
 .ep-checkbox:active { transform: scale(0.93); }
-.ep-checked {
-    box-shadow: 0 0 10px rgba(99,102,241,0.4) !important;
-}
+.ep-checked { box-shadow: 0 0 10px rgba(99,102,241,0.4) !important; }
 
 /* ============================================================
    "ATÉ AQUI" MARK BUTTON
@@ -233,4 +172,200 @@ body {
 #toast {
     backdrop-filter: blur(18px) saturate(1.2);
     -webkit-backdrop-filter: blur(18px) saturate(1.2);
+}
+
+/* ============================================================
+   CATALOG SECTION TITLE
+   ============================================================ */
+.catalog-section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: rgba(148,163,184,0.45);
+    margin-bottom: 14px;
+}
+
+/* ============================================================
+   POSTER GRID
+   ============================================================ */
+.poster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 12px;
+}
+@media (min-width: 640px) {
+    .poster-grid {
+        grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+        gap: 14px;
+    }
+}
+@media (min-width: 1024px) {
+    .poster-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
+/* ============================================================
+   POSTER CARD
+   ============================================================ */
+.poster-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    aspect-ratio: 2 / 3;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.28s cubic-bezier(0.34,1.3,0.64,1), box-shadow 0.28s ease, border-color 0.2s;
+    user-select: none;
+}
+.poster-card:hover {
+    transform: scale(1.06) translateY(-3px);
+    box-shadow:
+        0 28px 64px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(99,102,241,0.4),
+        0 0 28px rgba(99,102,241,0.22);
+    border-color: rgba(99,102,241,0.4);
+    z-index: 10;
+}
+.poster-card.poster-active {
+    border-color: rgba(99,102,241,0.6);
+    box-shadow:
+        0 0 0 1px rgba(99,102,241,0.5),
+        0 0 32px rgba(99,102,241,0.25),
+        0 8px 32px rgba(0,0,0,0.6);
+}
+.poster-card.poster-active .poster-overlay {
+    background: linear-gradient(to top,
+        rgba(0,0,0,0.95) 0%,
+        rgba(60,50,160,0.15) 55%,
+        rgba(0,0,0,0.05) 100%);
+}
+
+/* Noise/grain texture overlay — adds film-grain depth */
+.poster-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+/* ============================================================
+   POSTER OVERLAY (gradient + title/meta at bottom)
+   ============================================================ */
+.poster-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+        rgba(0,0,0,0.92) 0%,
+        rgba(0,0,0,0.3) 45%,
+        rgba(0,0,0,0.0) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px 10px 10px;
+    transition: background 0.2s;
+}
+.poster-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+}
+.poster-meta {
+    font-size: 9px;
+    color: rgba(148,163,184,0.6);
+    margin-top: 3px;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   POSTER PROGRESS RING (top-right corner of each card)
+   ============================================================ */
+.poster-progress-ring {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+}
+
+/* ============================================================
+   ARC EPISODE PANEL (collapsible below poster grid)
+   ============================================================ */
+.arc-eps-panel {
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(16px) saturate(1.1);
+    -webkit-backdrop-filter: blur(16px) saturate(1.1);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+.arc-eps-panel.hidden {
+    display: none;
+}
+.arc-eps-panel:not(.hidden) {
+    animation: panelSlideIn 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes panelSlideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.arc-eps-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    gap: 12px;
+}
+
+/* ============================================================
+   CONTINUE WATCHING CARD
+   ============================================================ */
+.continue-card {
+    display: flex;
+    align-items: stretch;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.07);
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.22s, background 0.15s;
+    background: rgba(255,255,255,0.02);
+}
+.continue-card:hover {
+    border-color: rgba(99,102,241,0.35);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.15);
+    background: rgba(99,102,241,0.04);
+}
+.continue-thumb {
+    width: 70px;
+    min-height: 70px;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+.continue-info {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+}
+.continue-progress-bar {
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 1px;
+    overflow: hidden;
+    max-width: 160px;
+}
+.continue-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    border-radius: 1px;
+    transition: width 0.5s ease;
 }
