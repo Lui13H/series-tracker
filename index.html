@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamTrack - Maratona do Luis e do Samuel</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0f172a',
+                        cardBg: '#1e293b',
+                        cardHover: '#334155',
+                        accent: '#6366f1',
+                        accentHover: '#4f46e5'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                    <i class="fa-solid fa-play text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent">StreamTrack</h1>
+                    <p class="text-xs text-slate-400">Cronograma de Maratona</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button onclick="handleResetAllProgress()" class="text-xs px-3 py-2 rounded-lg bg-slate-800 hover:bg-red-900/40 hover:text-red-400 text-slate-400 transition border border-slate-700/50 flex items-center gap-1.5">
+                    <i class="fa-solid fa-rotate-right"></i> Resetar Tudo
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+
+        <!-- Top Navigation Tabs: Luis vs Samuel -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="main-tabs">
+            <!-- Rendered via JS -->
+        </div>
+
+        <!-- Sub-route selector for Luis (Rota 1 vs Rota 2) -->
+        <div id="luis-subtabs-container" class="hidden">
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-code-fork text-indigo-400"></i>
+                    <span class="text-sm font-semibold text-white">Escolha a Rota do Luis:</span>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <button onclick="switchLuisRoute('rota1')" id="btn-rota1" class="flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition border">
+                        Rota 1 (Hunter x Hunter Completo + CSM)
+                    </button>
+                    <button onclick="switchLuisRoute('rota2')" id="btn-rota2" class="flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition border">
+                        Rota 2 (Death Note + CSM)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sub-route selector for Samuel (Rota 1 vs Rota 2) -->
+        <div id="samuel-subtabs-container" class="hidden">
+            <div class="bg-slate-900/40 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-hat-cowboy text-amber-400"></i>
+                    <span class="text-sm font-semibold text-white">Escolha a Rota do Samuel:</span>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <button onclick="switchSamuelRoute('rota1')" id="btn-samuel-rota1" class="flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition border">
+                        Rota 1 (BB + El Camino + BCS)
+                    </button>
+                    <button onclick="switchSamuelRoute('rota2')" id="btn-samuel-rota2" class="flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition border">
+                        Rota 2 (Breaking Bad + El Camino)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard / Overview Stats -->
+        <section class="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 shadow-xl backdrop-blur-sm">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <h2 id="current-title" class="text-2xl font-bold text-white mb-1">Carregando...</h2>
+                    <p id="current-desc" class="text-sm text-slate-400">Acompanhe seu progresso episódio por episódio.</p>
+                </div>
+                <!-- Global Stats Pills -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-3 text-center">
+                        <span class="block text-xs text-slate-400 uppercase tracking-wider font-medium">Progresso</span>
+                        <span id="stat-percent" class="text-lg font-bold text-indigo-400">0%</span>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-3 text-center">
+                        <span class="block text-xs text-slate-400 uppercase tracking-wider font-medium">Assistido</span>
+                        <span id="stat-watched" class="text-lg font-bold text-emerald-400">0h 0min</span>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-3 text-center">
+                        <span class="block text-xs text-slate-400 uppercase tracking-wider font-medium">Falta</span>
+                        <span id="stat-remaining" class="text-lg font-bold text-amber-400">0h 0min</span>
+                    </div>
+                    <div class="bg-slate-800/80 border border-slate-700/60 rounded-xl p-3 text-center">
+                        <span class="block text-xs text-slate-400 uppercase tracking-wider font-medium">Total</span>
+                        <span id="stat-total" class="text-lg font-bold text-slate-200">0h 0min</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Progress Bar -->
+            <div class="mt-6 w-full bg-slate-800 h-3 rounded-full overflow-hidden p-0.5 border border-slate-700/40">
+                <div id="progress-bar-fill" class="bg-gradient-to-r from-indigo-500 to-violet-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+            </div>
+        </section>
+
+        <!-- Arcs and Episodes Section -->
+        <div id="arcs-container" class="space-y-8">
+            <!-- Rendered via JS -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-auto">
+        <p>StreamTrack &copy; 2026 - Rotas do Luis e do Samuel salvas no seu navegador.</p>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center space-x-3 transform translate-y-24 opacity-0 transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-medium">Progresso atualizado com sucesso!</span>
+    </div>
+
+    <!-- External Scripts (in order) -->
+    <script src="js/data/episodes.js"></script>
+    <script src="js/state/progress.js"></script>
+    <script src="js/utils/time.js"></script>
+    <script src="js/utils/toast.js"></script>
+    <script src="js/ui/routes.js"></script>
+    <script src="js/ui/render.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

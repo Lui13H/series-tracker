@@ -1,0 +1,150 @@
+{
+  "communities": {
+    "0": [
+      "js_app_initapp",
+      "js_state_progress",
+      "js_state_progress_getprogressforroute",
+      "js_state_progress_getsavedprogress",
+      "js_state_progress_iswatched",
+      "js_state_progress_loadprogress",
+      "js_state_progress_resetallprogress",
+      "js_state_progress_saveprogress",
+      "js_state_progress_toggleepisodeupto",
+      "js_state_progress_togglesingleepisode",
+      "js_state_progress_userprogress"
+    ],
+    "1": [
+      "js_app",
+      "js_app_handleresetallprogress",
+      "js_app_handletoggleepisodeupto",
+      "js_app_handletogglesingleepisode",
+      "js_app_switchluisroute",
+      "js_app_switchsamuelroute",
+      "js_app_switchtab",
+      "js_utils_toast",
+      "js_utils_toast_showtoast"
+    ],
+    "2": [
+      "js_data_episodes",
+      "js_data_episodes_bettercallsauleps",
+      "js_data_episodes_breakingbadeps",
+      "js_data_episodes_chainsawmaneps",
+      "js_data_episodes_deathnoteeps",
+      "js_data_episodes_elcaminoeps",
+      "js_data_episodes_hxhchimera",
+      "js_data_episodes_hxhexame",
+      "js_data_episodes_hxhyorknew"
+    ],
+    "3": [
+      "assets_css_styles",
+      "index",
+      "js_ui_routes",
+      "js_ui_routes_getactivekey",
+      "js_ui_routes_getluisarcs",
+      "js_ui_routes_getsamuelarcs",
+      "js_utils_time",
+      "js_utils_time_formattime"
+    ],
+    "4": [
+      "js_ui_render",
+      "js_ui_render_renderapp",
+      "js_ui_render_renderarcs",
+      "js_ui_render_renderdashboard",
+      "js_ui_render_rendermaintabs",
+      "js_ui_render_rendersubtabs"
+    ],
+    "5": [
+      "readme"
+    ]
+  },
+  "cohesion": {
+    "0": 0.2727272727272727,
+    "1": 0.2222222222222222,
+    "2": 0.2222222222222222,
+    "3": 0.25,
+    "4": 0.6,
+    "5": 1.0
+  },
+  "gods": [
+    {
+      "id": "js_ui_render_renderapp",
+      "label": "renderApp()",
+      "degree": 6
+    },
+    {
+      "id": "js_state_progress_saveprogress",
+      "label": "saveProgress()",
+      "degree": 4
+    },
+    {
+      "id": "js_state_progress_loadprogress",
+      "label": "loadProgress()",
+      "degree": 3
+    },
+    {
+      "id": "js_app_initapp",
+      "label": "initApp()",
+      "degree": 2
+    },
+    {
+      "id": "js_state_progress_getprogressforroute",
+      "label": "getProgressForRoute()",
+      "degree": 2
+    },
+    {
+      "id": "js_state_progress_getsavedprogress",
+      "label": "getSavedProgress()",
+      "degree": 2
+    },
+    {
+      "id": "js_state_progress_iswatched",
+      "label": "isWatched()",
+      "degree": 2
+    },
+    {
+      "id": "js_state_progress_resetallprogress",
+      "label": "resetAllProgress()",
+      "degree": 2
+    },
+    {
+      "id": "js_state_progress_toggleepisodeupto",
+      "label": "toggleEpisodeUpTo()",
+      "degree": 2
+    },
+    {
+      "id": "js_state_progress_togglesingleepisode",
+      "label": "toggleSingleEpisode()",
+      "degree": 2
+    }
+  ],
+  "surprises": [
+    {
+      "source": "initApp()",
+      "target": "loadProgress()",
+      "source_files": [
+        "js/app.js",
+        "js/state/progress.js"
+      ],
+      "confidence": "INFERRED",
+      "relation": "calls",
+      "why": "inferred connection - not explicitly stated in source"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `renderApp()` connect `UI Rendering` to `Event Handlers`?",
+      "why": "High betweenness centrality (0.050) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `styles.css` to the rest of the system?",
+      "why": "1 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `initApp()` connect `Watch Progress` to `Event Handlers`?",
+      "why": "High betweenness centrality (0.016) - this node is a cross-community bridge."
+    }
+  ]
+}
