@@ -1,63 +1,120 @@
 /* ============================================================
-   BASE
+   BASE + ATMOSPHERIC BACKGROUND
    ============================================================ */
 body {
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    /* Cinematic atmosphere: radial glow fixed to the viewport */
+    background-image:
+        radial-gradient(ellipse 85% 55% at 50% -8%, rgba(99,102,241,0.14) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 35% at 88% 90%, rgba(139,92,246,0.07) 0%, transparent 55%);
+    background-attachment: fixed;
+    overflow-x: hidden;
 }
 
 /* ============================================================
    SCROLLBAR
    ============================================================ */
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(51,65,85,0.7); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #475569; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.22); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(99,102,241,0.45); }
 
 /* ============================================================
-   TYPOGRAPHY UTILITIES
+   TYPOGRAPHY
    ============================================================ */
 .stat-num {
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     line-height: 1;
 }
 
 /* ============================================================
-   MAIN TAB CARDS (Rota do Luis / Rota do Samuel)
+   GLASSMORPHISM PANEL
+   Used on: header, dashboard, route selectors
    ============================================================ */
-.tab-card {
-    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s, transform 0.15s;
-}
-.tab-card:hover {
-    transform: translateY(-1px);
+.glass-panel {
+    background: rgba(255,255,255,0.025);
+    backdrop-filter: blur(20px) saturate(1.15);
+    -webkit-backdrop-filter: blur(20px) saturate(1.15);
+    border: 1px solid rgba(255,255,255,0.07);
 }
 
 /* ============================================================
-   ROUTE SELECTOR BUTTONS
+   PROFILE CARDS  (Rota do Luis / Rota do Samuel)
    ============================================================ */
-.route-btn {
-    transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+.profile-card {
+    backdrop-filter: blur(14px) saturate(1.1);
+    -webkit-backdrop-filter: blur(14px) saturate(1.1);
+    transition: background 0.22s, border-color 0.22s, box-shadow 0.28s, transform 0.18s;
 }
-.route-btn:hover {
-    box-shadow: 0 0 0 1px rgba(99,102,241,0.3), 0 2px 10px rgba(0,0,0,0.3);
+.profile-card:hover:not(.profile-active-indigo):not(.profile-active-amber) {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,0.05) !important;
+    border-color: rgba(255,255,255,0.13) !important;
+}
+/* Luis – selected */
+.profile-active-indigo {
+    background: rgba(99,102,241,0.1) !important;
+    border-color: rgba(99,102,241,0.5) !important;
+    box-shadow:
+        0 0 0 1px rgba(99,102,241,0.18),
+        0 0 30px rgba(99,102,241,0.2),
+        0 8px 32px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.07);
+}
+/* Samuel – selected */
+.profile-active-amber {
+    background: rgba(245,158,11,0.08) !important;
+    border-color: rgba(245,158,11,0.42) !important;
+    box-shadow:
+        0 0 0 1px rgba(245,158,11,0.14),
+        0 0 30px rgba(245,158,11,0.15),
+        0 8px 32px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
 /* ============================================================
-   STAT PILLS
+   PILL ROUTE BUTTONS  (Rota 1 / Rota 2)
    ============================================================ */
-.stat-pill {
-    position: relative;
-    overflow: hidden;
-    border-bottom: 1.5px solid var(--pill-accent, rgba(99,102,241,0.25));
-    border-top: none;
-    border-left: none;
-    border-right: none;
+.pill-btn {
+    border-radius: 9999px !important;
+    padding: 7px 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.22s, color 0.2s, transform 0.12s;
+}
+.pill-btn:active { transform: scale(0.96); }
+/* Active (indigo) */
+.pill-active-indigo {
+    background: linear-gradient(135deg, #5b58f0, #7c3aed) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 4px 20px rgba(99,102,241,0.45), 0 0 0 1px rgba(99,102,241,0.3);
+}
+/* Active (amber) */
+.pill-active-amber {
+    background: linear-gradient(135deg, #d97706, #f59e0b) !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    box-shadow: 0 4px 20px rgba(245,158,11,0.38), 0 0 0 1px rgba(245,158,11,0.25);
+}
+/* Inactive */
+.pill-inactive {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.09) !important;
+    color: rgba(148,163,184,0.75) !important;
+}
+.pill-btn:hover:not(.pill-active-indigo):not(.pill-active-amber) {
+    background: rgba(255,255,255,0.09) !important;
+    border-color: rgba(255,255,255,0.16) !important;
+    color: #fff !important;
 }
 
 /* ============================================================
-   GLOBAL PROGRESS BAR (dashboard)
+   GLOBAL PROGRESS BAR  (dashboard strip)
    ============================================================ */
 .progress-track {
     height: 3px;
@@ -67,43 +124,54 @@ body {
 }
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #4f46e5 0%, #6366f1 45%, #818cf8 100%);
+    background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 55%, #a78bfa 100%);
     border-radius: 2px;
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(124,58,237,0.65);
 }
 
 /* ============================================================
-   ARC CARD
+   ARC CARD  (glassmorphism)
    ============================================================ */
 .arc-card {
+    background: rgba(255,255,255,0.025);
+    backdrop-filter: blur(18px) saturate(1.12);
+    -webkit-backdrop-filter: blur(18px) saturate(1.12);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    overflow: hidden;
     position: relative;
+    transition: border-color 0.22s;
 }
-/* subtle left accent stripe */
+.arc-card:hover {
+    border-color: rgba(255,255,255,0.12);
+}
+/* Left accent stripe */
 .arc-card::before {
     content: '';
     position: absolute;
-    left: 0; top: 20px; bottom: 20px;
+    left: 0; top: 18px; bottom: 18px;
     width: 2px;
     border-radius: 0 2px 2px 0;
-    background: linear-gradient(180deg, #818cf8 0%, #6366f1 50%, rgba(99,102,241,0) 100%);
-    opacity: 0.45;
+    background: linear-gradient(180deg, #818cf8 0%, #6366f1 55%, rgba(99,102,241,0) 100%);
+    opacity: 0.6;
+    z-index: 2;
     pointer-events: none;
-    z-index: 1;
 }
 
 /* ============================================================
-   ARC PROGRESS BAR (inside each arc)
+   ARC MINI PROGRESS BAR
    ============================================================ */
 .arc-progress-track {
     height: 2px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.06);
     border-radius: 1px;
     overflow: hidden;
-    margin-top: 6px;
+    margin-top: 8px;
 }
 .arc-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #6366f1, #818cf8);
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
     border-radius: 1px;
     transition: width 0.5s ease;
 }
@@ -112,14 +180,21 @@ body {
    EPISODE ROWS
    ============================================================ */
 .ep-row {
-    transition: background 0.1s;
+    transition: background 0.15s ease;
     border-bottom: 1px solid rgba(255,255,255,0.04);
 }
-.ep-row:last-child {
-    border-bottom: none;
-}
+.ep-row:last-child { border-bottom: none; }
 .ep-row:hover {
-    background: rgba(255,255,255,0.02) !important;
+    background: rgba(99,102,241,0.07) !important;
+}
+/* Row hover lifts child text/button states */
+.ep-row:hover .ep-title-text {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+.ep-row:hover .btn-mark {
+    border-color: rgba(99,102,241,0.4) !important;
+    color: #a5b4fc !important;
 }
 
 /* ============================================================
@@ -127,34 +202,35 @@ body {
    ============================================================ */
 .ep-checkbox {
     flex-shrink: 0;
-    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.18s, transform 0.1s;
 }
 .ep-checkbox:hover:not(.ep-checked) {
-    border-color: #6366f1 !important;
-    box-shadow: 0 0 0 3px rgba(99,102,241,0.12), inset 0 0 0 1px rgba(99,102,241,0.15);
+    border-color: rgba(99,102,241,0.75) !important;
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.13), 0 0 8px rgba(99,102,241,0.18);
+    transform: scale(1.07);
 }
+.ep-checkbox:active { transform: scale(0.93); }
 .ep-checked {
-    box-shadow: 0 0 8px rgba(99,102,241,0.3) !important;
+    box-shadow: 0 0 10px rgba(99,102,241,0.4) !important;
 }
 
 /* ============================================================
-   "JÁ VI ATÉ AQUI" BUTTON
+   "ATÉ AQUI" MARK BUTTON
    ============================================================ */
 .btn-mark {
-    transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, color 0.15s;
+    transition: background 0.15s, border-color 0.15s, box-shadow 0.18s, color 0.15s;
 }
 .btn-mark:hover {
-    border-color: rgba(99,102,241,0.45) !important;
-    box-shadow: 0 0 0 1px rgba(99,102,241,0.2), 0 2px 10px rgba(0,0,0,0.35);
+    border-color: rgba(99,102,241,0.5) !important;
+    box-shadow: 0 0 0 1px rgba(99,102,241,0.22), 0 2px 14px rgba(0,0,0,0.4);
     color: #a5b4fc !important;
 }
-.btn-mark:active {
-    transform: scale(0.97);
-}
+.btn-mark:active { transform: scale(0.95); }
 
 /* ============================================================
    TOAST
    ============================================================ */
 #toast {
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
 }

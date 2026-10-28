@@ -12,9 +12,9 @@
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0f172a',
-                        cardBg: '#1e293b',
-                        cardHover: '#334155',
+                        darkBg: '#090c14',
+                        cardBg: '#0f1422',
+                        cardHover: '#16203a',
                         accent: '#6366f1',
                         accentHover: '#4f46e5'
                     }
@@ -32,20 +32,20 @@
 <body class="bg-darkBg text-slate-100 min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
     <!-- Header / Navbar -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header class="glass-panel border-x-0 border-t-0 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-15 flex items-center justify-between" style="height:60px">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                    <i class="fa-solid fa-play text-white text-lg"></i>
+                <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-600/40">
+                    <i class="fa-solid fa-play text-white" style="font-size:13px;margin-left:1px"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent">StreamTrack</h1>
-                    <p class="text-xs text-slate-400">Cronograma de Maratona</p>
+                    <h1 class="font-bold text-base tracking-tight bg-gradient-to-r from-white to-indigo-300 bg-clip-text text-transparent" style="letter-spacing:-0.02em">StreamTrack</h1>
+                    <p class="text-[10px] text-slate-600 uppercase tracking-widest" style="margin-top:1px">Cronograma de Maratona</p>
                 </div>
             </div>
             <div class="flex items-center space-x-3">
-                <button onclick="handleResetAllProgress()" class="text-xs px-3 py-2 rounded-lg bg-slate-800 hover:bg-red-900/40 hover:text-red-400 text-slate-400 transition border border-slate-700/50 flex items-center gap-1.5">
-                    <i class="fa-solid fa-rotate-right"></i> Resetar Tudo
+                <button onclick="handleResetAllProgress()" class="text-[11px] px-3 py-2 rounded-lg bg-white/[0.04] hover:bg-red-950/40 hover:text-red-400 text-slate-500 transition border border-white/[0.07] flex items-center gap-1.5">
+                    <i class="fa-solid fa-rotate-right text-[10px]"></i> Resetar
                 </button>
             </div>
         </div>
@@ -61,16 +61,15 @@
 
         <!-- Sub-route selector for Luis (Rota 1 vs Rota 2) -->
         <div id="luis-subtabs-container" class="hidden">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 px-1">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-code-fork text-indigo-400/70 text-xs"></i>
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Rota do Luis</span>
-                </div>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <i class="fa-solid fa-code-fork opacity-60"></i> Escolha a rota
+                </span>
                 <div class="flex items-center gap-2 w-full sm:w-auto">
-                    <button onclick="switchLuisRoute('rota1')" id="btn-rota1" class="route-btn flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition border">
+                    <button onclick="switchLuisRoute('rota1')" id="btn-rota1" class="pill-btn flex-1 sm:flex-none border pill-inactive">
                         Rota 1 — HxH Completo + CSM
                     </button>
-                    <button onclick="switchLuisRoute('rota2')" id="btn-rota2" class="route-btn flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition border">
+                    <button onclick="switchLuisRoute('rota2')" id="btn-rota2" class="pill-btn flex-1 sm:flex-none border pill-inactive">
                         Rota 2 — Death Note + CSM
                     </button>
                 </div>
@@ -79,16 +78,15 @@
 
         <!-- Sub-route selector for Samuel (Rota 1 vs Rota 2) -->
         <div id="samuel-subtabs-container" class="hidden">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 px-1">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-hat-cowboy text-amber-400/70 text-xs"></i>
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-widest">Rota do Samuel</span>
-                </div>
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <span class="text-[10px] font-semibold text-slate-600 uppercase tracking-widest flex items-center gap-1.5">
+                    <i class="fa-solid fa-hat-cowboy opacity-60"></i> Escolha a rota
+                </span>
                 <div class="flex items-center gap-2 w-full sm:w-auto">
-                    <button onclick="switchSamuelRoute('rota1')" id="btn-samuel-rota1" class="route-btn flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition border">
+                    <button onclick="switchSamuelRoute('rota1')" id="btn-samuel-rota1" class="pill-btn flex-1 sm:flex-none border pill-inactive">
                         Rota 1 — BB + El Camino + BCS
                     </button>
-                    <button onclick="switchSamuelRoute('rota2')" id="btn-samuel-rota2" class="route-btn flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs font-bold transition border">
+                    <button onclick="switchSamuelRoute('rota2')" id="btn-samuel-rota2" class="pill-btn flex-1 sm:flex-none border pill-inactive">
                         Rota 2 — Breaking Bad + El Camino
                     </button>
                 </div>
@@ -96,34 +94,39 @@
         </div>
 
         <!-- Dashboard / Overview Stats -->
-        <section class="bg-[#0c1225]/80 border border-white/[0.07] rounded-xl p-6 shadow-2xl backdrop-blur-sm">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                    <h2 id="current-title" class="text-2xl font-bold text-white mb-1">Carregando...</h2>
-                    <p id="current-desc" class="text-sm text-slate-400">Acompanhe seu progresso episódio por episódio.</p>
+        <section class="glass-panel rounded-2xl px-6 py-5 shadow-2xl">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+                <!-- Title + Desc -->
+                <div class="min-w-0">
+                    <h2 id="current-title" class="text-lg font-semibold text-white truncate" style="letter-spacing:-0.02em">Carregando...</h2>
+                    <p id="current-desc" class="text-[11px] text-slate-600 mt-0.5">Acompanhe seu progresso episódio por episódio.</p>
                 </div>
-                <!-- Global Stats Pills -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    <div class="stat-pill bg-slate-900/70 rounded-lg px-3 pt-3 pb-3.5 text-center" style="--pill-accent: rgba(99,102,241,0.5)">
-                        <span class="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1.5">Progresso</span>
-                        <span id="stat-percent" class="stat-num text-2xl font-bold text-indigo-400">0%</span>
+                <!-- Stats strip -->
+                <div class="flex items-center gap-0 shrink-0">
+                    <!-- Hero: percent -->
+                    <div class="pr-5 border-r border-white/[0.07]">
+                        <span id="stat-percent" class="stat-num text-3xl font-bold text-indigo-400">0%</span>
+                        <span class="block text-[9px] text-slate-600 uppercase tracking-widest mt-1">Progresso</span>
                     </div>
-                    <div class="stat-pill bg-slate-900/70 rounded-lg px-3 pt-3 pb-3.5 text-center" style="--pill-accent: rgba(52,211,153,0.35)">
-                        <span class="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1.5">Assistido</span>
-                        <span id="stat-watched" class="stat-num text-base font-bold text-emerald-400">0h 0min</span>
-                    </div>
-                    <div class="stat-pill bg-slate-900/70 rounded-lg px-3 pt-3 pb-3.5 text-center" style="--pill-accent: rgba(251,191,36,0.35)">
-                        <span class="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1.5">Falta</span>
-                        <span id="stat-remaining" class="stat-num text-base font-bold text-amber-400">0h 0min</span>
-                    </div>
-                    <div class="stat-pill bg-slate-900/70 rounded-lg px-3 pt-3 pb-3.5 text-center" style="--pill-accent: rgba(100,116,139,0.3)">
-                        <span class="block text-[10px] text-slate-500 uppercase tracking-widest font-semibold mb-1.5">Total</span>
-                        <span id="stat-total" class="stat-num text-base font-bold text-slate-300">0h 0min</span>
+                    <!-- Time stats -->
+                    <div class="flex items-center gap-5 pl-5">
+                        <div>
+                            <span id="stat-watched" class="stat-num text-sm font-bold text-emerald-400 block">0h</span>
+                            <span class="text-[9px] text-slate-600 uppercase tracking-widest mt-0.5 block">Assistido</span>
+                        </div>
+                        <div>
+                            <span id="stat-remaining" class="stat-num text-sm font-bold text-amber-400 block">0h</span>
+                            <span class="text-[9px] text-slate-600 uppercase tracking-widest mt-0.5 block">Falta</span>
+                        </div>
+                        <div>
+                            <span id="stat-total" class="stat-num text-sm font-bold text-slate-400 block">0h</span>
+                            <span class="text-[9px] text-slate-600 uppercase tracking-widest mt-0.5 block">Total</span>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- Progress Bar -->
-            <div class="mt-8 w-full progress-track">
+            <div class="mt-5 w-full progress-track">
                 <div id="progress-bar-fill" class="progress-fill" style="width: 0%"></div>
             </div>
         </section>
@@ -136,12 +139,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-auto">
+    <footer class="border-t border-white/[0.05] py-6 text-center text-xs text-slate-700 mt-auto">
         <p>StreamTrack &copy; 2026 - Rotas do Luis e do Samuel salvas no seu navegador.</p>
     </footer>
 
     <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-800 text-white px-4 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center space-x-3 transform translate-y-24 opacity-0 transition-all duration-300 z-50">
+    <div id="toast" class="fixed bottom-6 right-6 bg-white/[0.06] text-white px-4 py-3 rounded-xl shadow-2xl border border-white/[0.1] flex items-center space-x-3 transform translate-y-24 opacity-0 transition-all duration-300 z-50">
         <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
         <span id="toast-message" class="text-sm font-medium">Progresso atualizado com sucesso!</span>
     </div>
