@@ -14,8 +14,8 @@ const POSTER_IMAGES = {
     'Death Note':       'https://cdn.myanimelist.net/images/anime/9/9453.jpg',
     'Chainsaw':         'https://cdn.myanimelist.net/images/anime/1806/126216.jpg',
     'Breaking Bad':     'https://m.media-amazon.com/images/M/MV5BYmQ4YWMxYjEtYzZmZi00ZDk1LWFjODctMjdlY2UzMWJmZmZkXkEyXkFqcGdeQXVyMTMzNDExODE5._V1_FMjpg_UX1000_.jpg',
-    'El Camino':        'https://image.tmdb.org/t/p/w500/uro2gemb7OPsaRVCAkfRWqLGXeK.jpg',
-    'Better Call Saul': 'https://image.tmdb.org/t/p/w500/faHDcN4KXoXUB8dGPiCGgFJikaj.jpg',
+    'El Camino':        'https://m.media-amazon.com/images/M/MV5BNjk4MzVlM2UtZGM0ZC00M2M1LThkMWEtZjUxN2YyODM4N2JkXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg',
+    'Better Call Saul': 'https://m.media-amazon.com/images/M/MV5BZDA4YmE0OTYtMjRmNS00MjVjLTlhMWUtMjlkMzA4MjBiODU0XkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_FMjpg_UX1000_.jpg',
 };
 
 function getPosterImage(arcName) {

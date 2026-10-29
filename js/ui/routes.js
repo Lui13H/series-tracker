@@ -4,7 +4,7 @@ function getLuisArcs(luisRoute) {
             { name: 'Hunter × Hunter — Exame Hunter', epStart: 1, epEnd: 21, episodes: hxhExame },
             { name: 'Continuar Hunter × Hunter até Yorknew', epStart: 22, epEnd: 58, episodes: hxhYorknew },
             { name: 'Chainsaw Man + Filme da Reze', epStart: 59, epEnd: 71, episodes: chainsawManEps },
-            { name: 'Após Yorknew até o fim de Formigas Quimera', epStart: 72, epEnd: 149, episodes: hxhChimera }
+            { name: 'Hunter x Hunter — Formigas Quimera', epStart: 72, epEnd: 149, episodes: hxhChimera }
         ];
     } else {
         return [
