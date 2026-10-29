@@ -29,34 +29,42 @@ const hxhYorknew = Array.from({ length: 37 }, (_, i) => {
     return { num, globalIdx: num - 1, title: titles[i] || `Episódio ${num}`, duration: 23 };
 });
 
-// Chainsaw Man
-const chainsawManEps = Array.from({ length: 13 }, (_, i) => {
+// Hunter x Hunter - eps 59–148 (Greed Island + Formigas Quimera), globalIdx 58–147
+const hxhChimera = Array.from({ length: 90 }, (_, i) => {
     const num = 59 + i;
-    const titles = [
-        "Cão e Chave de Fenda", "Chegada a Tóquio", "Onde Mewo Está", "Resgate",
-        "O Sabor do Beijo", "Matar Denji", "O Sabor do Vômito", "Atiro em Gun",
-        "Vai de Kyoto", "Em Ruínas", "Missão Iniciada", "Katana vs Serra", "Chainsaw Man: Filme da Reze"
-    ];
-    const durations = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 100];
-    return { num, globalIdx: num - 1, title: titles[i], duration: durations[i] };
+    return { num, globalIdx: 58 + i, title: `Episódio ${num}`, duration: 23 };
 });
 
-// Hunter x Hunter - Formigas Quimera
-const hxhChimera = Array.from({ length: 78 }, (_, i) => {
-    const num = 72 + i;
-    return { num, globalIdx: 71 + i, title: `Episódio ${num} — Formigas Quimera`, duration: 23 };
-});
+// Chainsaw Man — série (12 eps), globalIdx 148–159
+const chainsawManEps = [
+    { num: 1,  globalIdx: 148, title: "Cão e Chave de Fenda",  duration: 24 },
+    { num: 2,  globalIdx: 149, title: "Chegada a Tóquio",       duration: 24 },
+    { num: 3,  globalIdx: 150, title: "Onde Mewo Está",          duration: 24 },
+    { num: 4,  globalIdx: 151, title: "Resgate",                 duration: 24 },
+    { num: 5,  globalIdx: 152, title: "O Sabor do Beijo",        duration: 24 },
+    { num: 6,  globalIdx: 153, title: "Matar Denji",             duration: 24 },
+    { num: 7,  globalIdx: 154, title: "O Sabor do Vômito",       duration: 24 },
+    { num: 8,  globalIdx: 155, title: "Atiro em Gun",            duration: 24 },
+    { num: 9,  globalIdx: 156, title: "Vai de Kyoto",            duration: 24 },
+    { num: 10, globalIdx: 157, title: "Em Ruínas",               duration: 24 },
+    { num: 11, globalIdx: 158, title: "Missão Iniciada",         duration: 24 },
+    { num: 12, globalIdx: 159, title: "Katana vs Serra",         duration: 24 },
+];
 
-// Death Note
+// Chainsaw Man — Filme da Reze, globalIdx 160
+const chainsawManFilme = [
+    { num: 1, globalIdx: 160, title: "Chainsaw Man: Filme da Reze", duration: 100 }
+];
+
+// Death Note — 37 eps, globalIdx 161–197
 const deathNoteEps = Array.from({ length: 37 }, (_, i) => {
-    const num = 22 + i;
     const titles = [
         'Renascimento', 'Confronto', 'Negociação', 'Perseguição', 'Estratégia', 'Desmascarado', 'Trama', 'Raio de Sol', 'Contato', 'Dúvida',
         'Assalto', 'Amor', 'Confissão', 'Amigo', 'Aposta', 'Decisão', 'Execução', 'Amigos', 'Matsuda', 'Improviso',
         'Atividade', 'Guia', 'Mania', 'Renascimento', 'Silêncio', 'Renovação', 'Sequestro', 'Impaciência', 'Pai', 'Justiça',
         'Tragédia', 'Seleção', 'Desprezo', 'Vigilância', 'Malícia', '1.28', 'Novo Mundo'
     ];
-    return { num, globalIdx: 21 + i, title: titles[i] || `Episódio ${num}`, duration: 23 };
+    return { num: i + 1, globalIdx: 161 + i, title: titles[i] || `Episódio ${i + 1}`, duration: 23 };
 });
 
 // Breaking Bad

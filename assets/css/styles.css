@@ -343,6 +343,13 @@ body {
 }
 
 /* ============================================================
+   EPISODE SCROLL CONTAINER  (prevents layout collapse on few items)
+   ============================================================ */
+.ep-scroll-container {
+    min-height: 180px;
+}
+
+/* ============================================================
    ARC EPISODE PANEL (collapsible below poster grid)
    ============================================================ */
 .arc-eps-panel {
