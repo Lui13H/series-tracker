@@ -9,16 +9,19 @@ function initApp() {
 
 function switchTab(tab) {
     currentTab = tab;
+    resetActiveSeasons();
     renderApp(currentTab, luisRoute, samuelRoute);
 }
 
 function switchLuisRoute(route) {
     luisRoute = route;
+    resetActiveSeasons();
     renderApp(currentTab, luisRoute, samuelRoute);
 }
 
 function switchSamuelRoute(route) {
     samuelRoute = route;
+    resetActiveSeasons();
     renderApp(currentTab, luisRoute, samuelRoute);
 }
 

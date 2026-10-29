@@ -25,6 +25,35 @@ function getPosterImage(arcName) {
     return null;
 }
 
+// Season tab state — persists across re-renders, reset on route/tab switch
+let activeSeasonPerArc = {};
+let _lastArcs = [];
+let _lastActiveKey = '';
+
+function resetActiveSeasons() {
+    activeSeasonPerArc = {};
+}
+
+// Updates only the episode list + tab highlights of the clicked arc panel
+// without triggering a full renderApp (avoids panel close/reopen)
+function switchSeason(arcIdx, seasonLabel) {
+    activeSeasonPerArc[arcIdx] = seasonLabel;
+    const panel = document.getElementById('arc-eps-' + arcIdx);
+    if (!panel) return;
+    const arc = _lastArcs[arcIdx];
+    if (!arc) return;
+    const groups = groupEpisodes(arc.episodes);
+    const activeGroup = groups.find(g => g.label === seasonLabel) || groups[0];
+    panel.querySelectorAll('.season-tab').forEach(btn => {
+        btn.classList.toggle('season-tab-active', btn.textContent.trim() === seasonLabel);
+    });
+    const scrollContainer = panel.querySelector('.ep-scroll-container');
+    if (scrollContainer) {
+        scrollContainer.innerHTML = renderEpisodeRows(activeGroup.episodes, _lastActiveKey);
+        scrollContainer.scrollTop = 0;
+    }
+}
+
 function renderApp(currentTab, luisRoute, samuelRoute) {
     renderMainTabs(currentTab);
     renderSubtabs(currentTab, luisRoute, samuelRoute);
@@ -147,30 +176,23 @@ function groupEpisodes(episodes) {
 }
 
 function renderEpisodeRows(episodes, activeKey) {
-    const groups = groupEpisodes(episodes);
-    return groups.map((group, gIdx) => {
-        const header = group.label
-            ? `<div class="season-header-row${gIdx > 0 ? ' season-header-sep' : ''}">${group.label}</div>`
-            : '';
-        const rows = group.episodes.map(ep => {
-            const watched = isWatched(ep.globalIdx, activeKey);
-            return `
-                <div class="ep-row px-5 py-3.5 flex items-center gap-3${watched ? ' bg-indigo-950/10' : ''}">
-                    <button onclick="handleToggleSingleEpisode(${ep.globalIdx})" class="ep-checkbox${watched ? ' ep-checked' : ''} w-6 h-6 rounded-md border flex items-center justify-center${watched ? ' bg-indigo-600 border-indigo-500/80 text-white' : ' border-white/[0.11] bg-white/[0.02] text-transparent'}">
-                        <i class="fa-solid fa-check" style="font-size:10px"></i>
-                    </button>
-                    <span class="stat-num text-slate-700 w-5 text-right shrink-0 select-none" style="font-size:10px">${ep.num}</span>
-                    <div class="flex-1 min-w-0">
-                        <h4 class="ep-title-text font-medium leading-tight truncate${watched ? ' text-slate-600' : ' text-slate-200'}" style="font-size:13px">${ep.title}</h4>
-                    </div>
-                    <span class="stat-num text-slate-700 shrink-0 w-11 text-right" style="font-size:11px">${ep.duration}<span style="font-size:9px">m</span></span>
-                    <button onclick="handleToggleEpisodeUpTo(${ep.globalIdx})" class="btn-mark text-slate-600 flex items-center gap-1.5 shrink-0 rounded-lg border border-white/[0.07] bg-white/[0.02]" style="font-size:10px;padding:6px 10px">
-                        <i class="fa-solid fa-flag text-indigo-500/60" style="font-size:9px"></i>
-                        <span class="hidden sm:inline">Ate aqui</span>
-                    </button>
-                </div>`;
-        }).join('');
-        return header + rows;
+    return episodes.map(ep => {
+        const watched = isWatched(ep.globalIdx, activeKey);
+        return `
+            <div class="ep-row px-5 py-3.5 flex items-center gap-3${watched ? ' bg-indigo-950/10' : ''}">
+                <button onclick="handleToggleSingleEpisode(${ep.globalIdx})" class="ep-checkbox${watched ? ' ep-checked' : ''} w-6 h-6 rounded-md border flex items-center justify-center${watched ? ' bg-indigo-600 border-indigo-500/80 text-white' : ' border-white/[0.11] bg-white/[0.02] text-transparent'}">
+                    <i class="fa-solid fa-check" style="font-size:10px"></i>
+                </button>
+                <span class="stat-num text-slate-700 w-5 text-right shrink-0 select-none" style="font-size:10px">${ep.num}</span>
+                <div class="flex-1 min-w-0">
+                    <h4 class="ep-title-text font-medium leading-tight truncate${watched ? ' text-slate-600' : ' text-slate-200'}" style="font-size:13px">${ep.title}</h4>
+                </div>
+                <span class="stat-num text-slate-700 shrink-0 w-11 text-right" style="font-size:11px">${ep.duration}<span style="font-size:9px">m</span></span>
+                <button onclick="handleToggleEpisodeUpTo(${ep.globalIdx})" class="btn-mark text-slate-600 flex items-center gap-1.5 shrink-0 rounded-lg border border-white/[0.07] bg-white/[0.02]" style="font-size:10px;padding:6px 10px">
+                    <i class="fa-solid fa-flag text-indigo-500/60" style="font-size:9px"></i>
+                    <span class="hidden sm:inline">Até aqui</span>
+                </button>
+            </div>`;
     }).join('');
 }
 
@@ -178,6 +200,8 @@ function renderArcs(currentTab, luisRoute, samuelRoute) {
     const arcs = currentTab === 'luis' ? getLuisArcs(luisRoute) : getSamuelArcs(samuelRoute);
     const activeKey = getActiveKey(currentTab, luisRoute, samuelRoute);
     const watchedList = getProgressForRoute(activeKey);
+    _lastArcs = arcs;
+    _lastActiveKey = activeKey;
 
     const arcStats = arcs.map(arc => {
         const totalDur = arc.episodes.reduce((s, e) => s + e.duration, 0);
@@ -245,6 +269,33 @@ function renderArcs(currentTab, luisRoute, samuelRoute) {
 
     const episodePanels = arcs.map((arc, i) => {
         const { percent, watchedCount } = arcStats[i];
+        const groups = groupEpisodes(arc.episodes);
+        const hasMultipleGroups = groups.length > 1;
+
+        let activeSeason;
+        if (hasMultipleGroups) {
+            if (activeSeasonPerArc[i]) {
+                activeSeason = activeSeasonPerArc[i];
+            } else {
+                const watchedInArc = arc.episodes.filter(ep => watchedList.includes(ep.globalIdx));
+                if (watchedInArc.length > 0) {
+                    const lastWatched = watchedInArc[watchedInArc.length - 1];
+                    const grp = groups.find(g => g.episodes.some(ep => ep.globalIdx === lastWatched.globalIdx));
+                    activeSeason = grp ? grp.label : groups[0].label;
+                } else {
+                    activeSeason = groups[0].label;
+                }
+            }
+        }
+        const activeGroup = hasMultipleGroups
+            ? (groups.find(g => g.label === activeSeason) || groups[0])
+            : groups[0];
+
+        const seasonTabsHtml = hasMultipleGroups ? `
+            <div class="season-tabs">
+                ${groups.map(g => `<button onclick="switchSeason(${i}, '${g.label}')" class="season-tab${g.label === activeSeason ? ' season-tab-active' : ''}">${g.label}</button>`).join('')}
+            </div>` : '';
+
         return `
             <div id="arc-eps-${i}" class="arc-eps-panel hidden">
                 <div class="arc-eps-header">
@@ -256,8 +307,9 @@ function renderArcs(currentTab, luisRoute, samuelRoute) {
                         <i class="fa-solid fa-chevron-up" style="font-size:9px;color:rgba(148,163,184,0.6)"></i>
                     </button>
                 </div>
+                ${seasonTabsHtml}
                 <div class="ep-scroll-container" style="max-height:460px;overflow-y:auto">
-                    ${renderEpisodeRows(arc.episodes, activeKey)}
+                    ${renderEpisodeRows(activeGroup.episodes, activeKey)}
                 </div>
             </div>`;
     }).join('');
