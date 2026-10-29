@@ -13,8 +13,8 @@ const POSTER_IMAGES = {
     'Hunter':           'https://cdn.myanimelist.net/images/anime/1337/99013.jpg',
     'Death Note':       'https://cdn.myanimelist.net/images/anime/9/9453.jpg',
     'Chainsaw':         'https://cdn.myanimelist.net/images/anime/1806/126216.jpg',
-    'Breaking Bad':     'assets/images/posters/breaking-bad.jpg',
     'El Camino':        'assets/images/posters/el-camino.jpg',
+    'Breaking Bad':     'assets/images/posters/breaking-bad.jpg',
     'Better Call Saul': 'assets/images/posters/better-call-saul.jpg',
 };
 
