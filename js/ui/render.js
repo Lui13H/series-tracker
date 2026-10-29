@@ -231,10 +231,10 @@ function renderArcs(currentTab, luisRoute, samuelRoute) {
     document.getElementById('arcs-container').innerHTML = continueSection + posterGrid + episodePanels;
 
     const openIdx = continueArcIdx >= 0 ? continueArcIdx : 0;
-    toggleArc(openIdx);
+    toggleArc(openIdx, true);
 }
 
-function toggleArc(arcIdx) {
+function toggleArc(arcIdx, skipScroll = false) {
     const panel = document.getElementById('arc-eps-' + arcIdx);
     if (!panel) return;
     const isOpen = !panel.classList.contains('hidden');
@@ -246,6 +246,16 @@ function toggleArc(arcIdx) {
         panel.classList.remove('hidden');
         const card = document.querySelector('.poster-card[data-arc="' + arcIdx + '"]');
         if (card) card.classList.add('poster-active');
-        setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+
+        if (!skipScroll) {
+            setTimeout(() => {
+                const rect = panel.getBoundingClientRect();
+                const headerH = 68;
+                if (rect.top < headerH || rect.bottom > window.innerHeight) {
+                    const targetY = window.scrollY + rect.top - headerH - 16;
+                    window.scrollTo({ top: Math.max(0, targetY), behavior: 'smooth' });
+                }
+            }, 80);
+        }
     }
 }
