@@ -9,6 +9,22 @@ const POSTER_GRADIENTS = [
     'linear-gradient(155deg, #1a0800 0%, #6b2c00 40%, #c04a00 70%, #3d1500 100%)',
 ];
 
+const POSTER_IMAGES = {
+    'Hunter':           'https://cdn.myanimelist.net/images/anime/1337/99013.jpg',
+    'Death Note':       'https://cdn.myanimelist.net/images/anime/9/9453.jpg',
+    'Chainsaw':         'https://cdn.myanimelist.net/images/anime/1806/126216.jpg',
+    'Breaking Bad':     'https://m.media-amazon.com/images/M/MV5BYmQ4YWMxYjEtYzZmZi00ZDk1LWFjODctMjdlY2UzMWJmZmZkXkEyXkFqcGdeQXVyMTMzNDExODE5._V1_FMjpg_UX1000_.jpg',
+    'El Camino':        'https://image.tmdb.org/t/p/w500/uro2gemb7OPsaRVCAkfRWqLGXeK.jpg',
+    'Better Call Saul': 'https://image.tmdb.org/t/p/w500/faHDcN4KXoXUB8dGPiCGgFJikaj.jpg',
+};
+
+function getPosterImage(arcName) {
+    for (const [key, url] of Object.entries(POSTER_IMAGES)) {
+        if (arcName.includes(key)) return url;
+    }
+    return null;
+}
+
 function renderApp(currentTab, luisRoute, samuelRoute) {
     renderMainTabs(currentTab);
     renderSubtabs(currentTab, luisRoute, samuelRoute);
@@ -124,12 +140,13 @@ function renderArcs(currentTab, luisRoute, samuelRoute) {
     const continueEp = continueArcIdx >= 0 ? arcStats[continueArcIdx].firstUnwatched : null;
     const continueArc = continueArcIdx >= 0 ? arcs[continueArcIdx] : null;
     const continueStats = continueArcIdx >= 0 ? arcStats[continueArcIdx] : null;
+    const continueImg = continueArc ? getPosterImage(continueArc.name) : null;
 
     const continueSection = continueEp ? `
         <div class="mb-8">
             <p class="catalog-section-title">Continuar Assistindo</p>
             <div class="continue-card" onclick="toggleArc(${continueArcIdx})">
-                <div class="continue-thumb" style="background:${POSTER_GRADIENTS[continueArcIdx % POSTER_GRADIENTS.length]}"></div>
+                <div class="continue-thumb" style="background:${POSTER_GRADIENTS[continueArcIdx % POSTER_GRADIENTS.length]};position:relative;overflow:hidden">${continueImg ? `<img src="${continueImg}" alt="" class="poster-img" onerror="this.remove()">` : ''}</div>
                 <div class="continue-info">
                     <p style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(148,163,184,0.45);font-weight:600;margin-bottom:4px">${continueArc.name}</p>
                     <p style="font-size:13px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${continueEp.title}</p>
@@ -153,9 +170,11 @@ function renderArcs(currentTab, luisRoute, samuelRoute) {
                 ${arcs.map((arc, i) => {
                     const { percent, watchedCount, totalDur } = arcStats[i];
                     const grad = POSTER_GRADIENTS[i % POSTER_GRADIENTS.length];
+                    const posterImg = getPosterImage(arc.name);
                     return `
                         <div class="poster-card" data-arc="${i}" onclick="toggleArc(${i})">
                             <div style="position:absolute;inset:0;background:${grad}"></div>
+                            ${posterImg ? `<img src="${posterImg}" alt="" class="poster-img" onerror="this.remove()">` : ''}
                             <div class="poster-noise"></div>
                             <div class="poster-overlay">
                                 <div class="poster-progress-ring">

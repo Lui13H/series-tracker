@@ -242,6 +242,16 @@ body {
         rgba(0,0,0,0.05) 100%);
 }
 
+/* Real poster image — sits above gradient fallback, below noise + overlay */
+.poster-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
 /* Noise/grain texture overlay — adds film-grain depth */
 .poster-noise {
     position: absolute;
