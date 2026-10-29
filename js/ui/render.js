@@ -123,6 +123,57 @@ function renderDashboard(currentTab, luisRoute, samuelRoute) {
     document.getElementById('progress-bar-fill').style.width = `${percent}%`;
 }
 
+function groupEpisodes(episodes) {
+    const hasSeasonsInTitle = episodes.some(ep => /^S\d+ E/.test(ep.title));
+    if (hasSeasonsInTitle) {
+        const map = {};
+        episodes.forEach(ep => {
+            const m = ep.title.match(/^S(\d+)\s/);
+            const s = m ? +m[1] : 0;
+            if (!map[s]) map[s] = { label: 'Temporada ' + s, episodes: [] };
+            map[s].episodes.push(ep);
+        });
+        return Object.keys(map).sort((a, b) => a - b).map(k => map[k]);
+    }
+    if (episodes.length > 35) {
+        const size = 20, groups = [];
+        for (let i = 0; i < episodes.length; i += size) {
+            const chunk = episodes.slice(i, i + size);
+            groups.push({ label: `Eps. ${chunk[0].num}–${chunk[chunk.length - 1].num}`, episodes: chunk });
+        }
+        return groups;
+    }
+    return [{ label: null, episodes }];
+}
+
+function renderEpisodeRows(episodes, activeKey) {
+    const groups = groupEpisodes(episodes);
+    return groups.map((group, gIdx) => {
+        const header = group.label
+            ? `<div class="season-header-row${gIdx > 0 ? ' season-header-sep' : ''}">${group.label}</div>`
+            : '';
+        const rows = group.episodes.map(ep => {
+            const watched = isWatched(ep.globalIdx, activeKey);
+            return `
+                <div class="ep-row px-5 py-3.5 flex items-center gap-3${watched ? ' bg-indigo-950/10' : ''}">
+                    <button onclick="handleToggleSingleEpisode(${ep.globalIdx})" class="ep-checkbox${watched ? ' ep-checked' : ''} w-6 h-6 rounded-md border flex items-center justify-center${watched ? ' bg-indigo-600 border-indigo-500/80 text-white' : ' border-white/[0.11] bg-white/[0.02] text-transparent'}">
+                        <i class="fa-solid fa-check" style="font-size:10px"></i>
+                    </button>
+                    <span class="stat-num text-slate-700 w-5 text-right shrink-0 select-none" style="font-size:10px">${ep.num}</span>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="ep-title-text font-medium leading-tight truncate${watched ? ' text-slate-600' : ' text-slate-200'}" style="font-size:13px">${ep.title}</h4>
+                    </div>
+                    <span class="stat-num text-slate-700 shrink-0 w-11 text-right" style="font-size:11px">${ep.duration}<span style="font-size:9px">m</span></span>
+                    <button onclick="handleToggleEpisodeUpTo(${ep.globalIdx})" class="btn-mark text-slate-600 flex items-center gap-1.5 shrink-0 rounded-lg border border-white/[0.07] bg-white/[0.02]" style="font-size:10px;padding:6px 10px">
+                        <i class="fa-solid fa-flag text-indigo-500/60" style="font-size:9px"></i>
+                        <span class="hidden sm:inline">Ate aqui</span>
+                    </button>
+                </div>`;
+        }).join('');
+        return header + rows;
+    }).join('');
+}
+
 function renderArcs(currentTab, luisRoute, samuelRoute) {
     const arcs = currentTab === 'luis' ? getLuisArcs(luisRoute) : getSamuelArcs(samuelRoute);
     const activeKey = getActiveKey(currentTab, luisRoute, samuelRoute);
@@ -205,25 +256,8 @@ function renderArcs(currentTab, luisRoute, samuelRoute) {
                         <i class="fa-solid fa-chevron-up" style="font-size:9px;color:rgba(148,163,184,0.6)"></i>
                     </button>
                 </div>
-                <div style="max-height:460px;overflow-y:auto">
-                    ${arc.episodes.map(ep => {
-                        const watched = isWatched(ep.globalIdx, activeKey);
-                        return `
-                            <div class="ep-row px-5 py-3.5 flex items-center gap-3${watched ? ' bg-indigo-950/10' : ''}">
-                                <button onclick="handleToggleSingleEpisode(${ep.globalIdx})" class="ep-checkbox${watched ? ' ep-checked' : ''} w-6 h-6 rounded-md border flex items-center justify-center${watched ? ' bg-indigo-600 border-indigo-500/80 text-white' : ' border-white/[0.11] bg-white/[0.02] text-transparent'}">
-                                    <i class="fa-solid fa-check" style="font-size:10px"></i>
-                                </button>
-                                <span class="stat-num text-slate-700 w-5 text-right shrink-0 select-none" style="font-size:10px">${ep.num}</span>
-                                <div class="flex-1 min-w-0">
-                                    <h4 class="ep-title-text font-medium leading-tight truncate${watched ? ' text-slate-600' : ' text-slate-200'}" style="font-size:13px">${ep.title}</h4>
-                                </div>
-                                <span class="stat-num text-slate-700 shrink-0 w-11 text-right" style="font-size:11px">${ep.duration}<span style="font-size:9px">m</span></span>
-                                <button onclick="handleToggleEpisodeUpTo(${ep.globalIdx})" class="btn-mark text-slate-600 flex items-center gap-1.5 shrink-0 rounded-lg border border-white/[0.07] bg-white/[0.02]" style="font-size:10px;padding:6px 10px">
-                                    <i class="fa-solid fa-flag text-indigo-500/60" style="font-size:9px"></i>
-                                    <span class="hidden sm:inline">Até aqui</span>
-                                </button>
-                            </div>`;
-                    }).join('')}
+                <div class="ep-scroll-container" style="max-height:460px;overflow-y:auto">
+                    ${renderEpisodeRows(arc.episodes, activeKey)}
                 </div>
             </div>`;
     }).join('');

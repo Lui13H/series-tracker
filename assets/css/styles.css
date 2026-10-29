@@ -124,6 +124,27 @@ body {
 }
 
 /* ============================================================
+   SEASON / GROUP HEADERS  (sticky inside episode scroll container)
+   ============================================================ */
+.season-header-row {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(148,163,184,0.5);
+    padding: 10px 20px 6px;
+    position: sticky;
+    top: 0;
+    background: rgba(9,12,20,0.96);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1;
+}
+.season-header-sep {
+    border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ============================================================
    EPISODE ROWS  (inside arc-eps-panel)
    ============================================================ */
 .ep-row {
